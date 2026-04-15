@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TN Plomberie — Refonte Démo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --text: #080808;
+      --muted: #5f6b7a;
+      --line: #d8dde5;
+      --blue: #146ef5;
+      --blue-dark: #0f57c6;
+      --accent: #ff6b00;
+      --success: #0aa35d;
+      --shadow: rgba(17, 24, 39, 0.04) 0px 84px 24px, rgba(17, 24, 39, 0.04) 0px 54px 22px, rgba(17, 24, 39, 0.05) 0px 30px 18px, rgba(17, 24, 39, 0.08) 0px 13px 13px, rgba(17, 24, 39, 0.08) 0px 3px 7px;
+      --radius: 8px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef4ff 0%, #f6f8fb 24%, #ffffff 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      background: #082b66;
+      color: white;
+      font-size: 14px;
+    }
+    .topbar .container {
+      display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; align-items: center;
+      flex-wrap: wrap;
+    }
+    .topbar strong { font-weight: 700; }
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.86); border-bottom: 1px solid rgba(216,221,229,0.8);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 0;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 14px; font-weight: 800; letter-spacing: -0.03em;
+    }
+    .brand-mark {
+      width: 46px; height: 46px; border-radius: 10px; background: linear-gradient(135deg, var(--blue), #49a2ff);
+      color: white; display: grid; place-items: center; font-size: 22px; box-shadow: var(--shadow);
+    }
+    .brand small { display: block; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: #243447; font-size: 15px; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
+    .phone-chip {
+      border: 1px solid var(--line); background: var(--surface); padding: 10px 14px; border-radius: 999px; font-weight: 700;
+      white-space: nowrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 20px; border-radius: 8px; border: 1px solid transparent; font-weight: 700; transition: .18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--blue); color: white; box-shadow: var(--shadow); }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-secondary { background: white; border-color: var(--line); }
+    .hero { padding: 56px 0 36px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.08fr .92fr; gap: 30px; align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; background: rgba(20,110,245,.1); color: var(--blue);
+      border: 1px solid rgba(20,110,245,.16); border-radius: 999px; padding: 8px 12px; font-size: 13px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    h1 {
+      margin: 18px 0 16px; font-size: clamp(42px, 6vw, 70px); line-height: 1.02; letter-spacing: -0.05em;
+    }
+    .hero p.lead {
+      margin: 0 0 24px; font-size: 20px; line-height: 1.55; color: #314255; max-width: 720px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }
+    .proofs { display: flex; flex-wrap: wrap; gap: 12px; }
+    .proof {
+      background: white; border: 1px solid var(--line); border-radius: 999px; padding: 10px 14px; font-size: 14px; color: #294057; font-weight: 600;
+    }
+    .hero-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero-photo {
+      height: 250px;
+      background:
+        linear-gradient(135deg, rgba(20,110,245,.96), rgba(12,48,99,.92)),
+        url('https://images.unsplash.com/photo-1621905252472-e8fdb1b67f8b?auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: white; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .hero-photo h2 { margin: 0; font-size: 32px; line-height: 1.05; letter-spacing: -0.04em; }
+    .hero-photo p { margin: 10px 0 0; max-width: 320px; color: rgba(255,255,255,0.92); }
+    .price-card {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 22px;
+    }
+    .price-box, .quote-box {
+      background: white; border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+    }
+    .price-box .price {
+      font-size: 42px; font-weight: 800; letter-spacing: -0.05em; color: var(--text);
+    }
+    .section { padding: 32px 0; }
+    .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 22px; }
+    .section-head h2 { margin: 0; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.04em; }
+    .section-head p { margin: 0; max-width: 560px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 22px;
+    }
+    .service-icon {
+      width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: rgba(20,110,245,.1); color: var(--blue); font-size: 22px; margin-bottom: 14px;
+    }
+    .card h3 { margin: 0 0 10px; font-size: 22px; letter-spacing: -0.03em; }
+    .card p { margin: 0 0 16px; color: var(--muted); line-height: 1.6; }
+    .card .mini-link { color: var(--blue); font-weight: 700; }
+    .trust-wrap {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px;
+    }
+    .trust-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .trust-item {
+      background: white; border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+    }
+    .trust-item strong { display: block; margin-bottom: 8px; font-size: 17px; }
+    .zone-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .zone-pills span {
+      background: white; border: 1px solid var(--line); border-radius: 999px; padding: 11px 14px; font-weight: 600;
+    }
+    .tarif-card {
+      background: linear-gradient(135deg, #0b1f46 0%, #0d3b84 100%); color: white; border-radius: 18px; padding: 28px; box-shadow: var(--shadow);
+    }
+    .tarif-card h3 { margin: 0 0 10px; font-size: 34px; letter-spacing: -0.04em; }
+    .tarif-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 18px; }
+    .tarif-item {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 18px;
+    }
+    .tarif-item strong { font-size: 24px; display: block; margin-bottom: 8px; }
+    .review {
+      background: white; border: 1px solid var(--line); border-radius: 16px; padding: 22px; box-shadow: var(--shadow);
+    }
+    .stars { color: #ffb21d; letter-spacing: 0.08em; font-size: 18px; }
+    .review p { color: #304255; line-height: 1.7; }
+    .cta-banner {
+      margin-top: 18px; background: linear-gradient(135deg, #146ef5 0%, #7a3dff 100%); color: white; border-radius: 20px; padding: 28px; box-shadow: var(--shadow);
+      display: flex; justify-content: space-between; gap: 18px; align-items: center;
+    }
+    .cta-banner h3 { margin: 0 0 8px; font-size: 34px; letter-spacing: -0.04em; }
+    .faq { display: grid; gap: 14px; }
+    .faq-item {
+      background: white; border: 1px solid var(--line); border-radius: 14px; padding: 20px;
+    }
+    .faq-item strong { display: block; margin-bottom: 8px; font-size: 18px; }
+    footer { padding: 34px 0 60px; color: #4f6073; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.3fr .7fr .8fr; gap: 18px;
+      background: white; border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: var(--shadow);
+    }
+    .mobile-stick {
+      display: none;
+      position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 70;
+      background: white; border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 12px;
+      gap: 10px;
+    }
+    .mobile-stick .btn { flex: 1; padding: 14px 16px; }
+    @media (max-width: 1024px) {
+      .hero-grid, .trust-wrap, .footer-grid, .grid-4, .grid-3, .tarif-grid, .price-card { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 768px) {
+      .hero { padding-top: 28px; }
+      .hero-grid, .trust-wrap, .footer-grid, .grid-4, .grid-3, .tarif-grid, .price-card, .trust-list { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: start; }
+      .cta-banner { flex-direction: column; align-items: start; }
+      .phone-chip { display: none; }
+      .nav-cta .btn-secondary { display: none; }
+      .mobile-stick { display: flex; }
+      .hero-photo { height: 220px; }
+      .topbar .container { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div><strong>Urgence plomberie à Tours :</strong> intervention rapide 7j/7</div>
+      <div>Devis annoncé avant travaux • Artisan local • Déplacement sur l'agglomération tourangelle</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark">🔧</div>
+        <div>
+          TN Plomberie
+          <small>Plombier à Tours</small>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#services">Prestations</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#zones">Zones d’intervention</a>
+        <a href="#avis">Avis</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="phone-chip" href="tel:+33663739066">06 63 73 90 66</a>
+        <a class="btn btn-secondary" href="#tarifs">Voir les tarifs</a>
+        <a class="btn btn-primary" href="#contact">Demander un devis</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Disponible 7j/7 à Tours et alentours</div>
+          <h1>Plombier à Tours — dépannage rapide et devis clair</h1>
+          <p class="lead">Fuite d’eau, WC bouchés, chauffe-eau, robinetterie, débouchage de canalisations : TN Plomberie intervient rapidement à Tours, Joué-lès-Tours, Saint-Cyr-sur-Loire, Saint-Pierre-des-Corps et les communes voisines.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="tel:+33663739066">Appeler maintenant</a>
+            <a class="btn btn-secondary" href="#contact">Demander un devis gratuit</a>
+          </div>
+          <div class="proofs">
+            <div class="proof">Devis avant intervention</div>
+            <div class="proof">Tarifs annoncés clairement</div>
+            <div class="proof">Intervention rapide</div>
+            <div class="proof">Artisan local</div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-photo">
+            <div class="eyebrow" style="background: rgba(255,255,255,.12); color: white; border-color: rgba(255,255,255,.2);">Refonte orientée conversion</div>
+            <div>
+              <h2>Une vitrine qui inspire confiance et fait appeler</h2>
+              <p>Le haut de page devient enfin un vrai bloc commercial : téléphone visible, promesse claire, zones couvertes, preuves de sérieux.</p>
+            </div>
+          </div>
+          <div class="price-card">
+            <div class="price-box">
+              <div style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;">Dépannage à partir de</div>
+              <div class="price">80€ TTC</div>
+              <div style="color:var(--muted);line-height:1.6;">Déplacement inclus • jusqu’à 1h de main-d’œuvre • devis avant travaux complémentaires</div>
+            </div>
+            <div class="quote-box">
+              <div style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;">Prise en charge</div>
+              <div style="font-size:26px;font-weight:800;letter-spacing:-.04em;margin:8px 0 10px;">Appel ou devis en moins de 2 min</div>
+              <div style="color:var(--muted);line-height:1.6;">Le visiteur comprend tout de suite quoi faire et comment vous joindre.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2>Prestations principales</h2>
+          <p>Au lieu d’un long pavé de texte, la refonte met en avant les besoins les plus fréquents, avec un accès immédiat au devis ou à l’appel.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="service-icon">💧</div>
+            <h3>Recherche et réparation de fuite</h3>
+            <p>Intervention rapide pour fuite d’eau, chasse d’eau, raccord, tuyauterie ou robinetterie défectueuse.</p>
+            <a class="mini-link" href="#contact">Demander un devis →</a>
+          </div>
+          <div class="card">
+            <div class="service-icon">🚽</div>
+            <h3>Débouchage WC et canalisations</h3>
+            <p>WC bouché, évier obstrué, canalisation lente : solution rapide avec tarif annoncé avant intervention.</p>
+            <a class="mini-link" href="#contact">Être rappelé →</a>
+          </div>
+          <div class="card">
+            <div class="service-icon">🔥</div>
+            <h3>Chauffe-eau et chauffage</h3>
+            <p>Diagnostic, réparation ou remplacement de chauffe-eau et intervention sur installations sanitaires et chauffage.</p>
+            <a class="mini-link" href="#contact">Voir l’intervention →</a>
+          </div>
+          <div class="card">
+            <div class="service-icon">🛁</div>
+            <h3>Pose et remplacement sanitaire</h3>
+            <p>WC, lavabo, robinet, douche, mitigeur : installation soignée pour particuliers et professionnels.</p>
+            <a class="mini-link" href="#contact">Recevoir un devis →</a>
+          </div>
+          <div class="card">
+            <div class="service-icon">⚡</div>
+            <h3>Urgence plomberie 7j/7</h3>
+            <p>Pour les cas urgents, le site pousse l’appel immédiat avec un bouton visible partout, surtout sur mobile.</p>
+            <a class="mini-link" href="tel:+33663739066">Appeler maintenant →</a>
+          </div>
+          <div class="card">
+            <div class="service-icon">📍</div>
+            <h3>Intervention locale autour de Tours</h3>
+            <p>Un ancrage local visible rassure davantage qu’une page générique SEO et améliore la conversion des prospects proches.</p>
+            <a class="mini-link" href="#zones">Voir les communes →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container trust-wrap">
+        <div class="card" style="padding:28px;">
+          <div class="section-head" style="margin-bottom:18px;display:block;">
+            <h2 style="font-size:40px;">Pourquoi cette refonte convertit mieux</h2>
+            <p style="margin-top:12px;">Le site actuel donne une impression ancienne et peu rassurante. Cette version met d’abord la confiance, la clarté tarifaire et l’appel à l’action.</p>
+          </div>
+          <div class="trust-list">
+            <div class="trust-item"><strong>Hiérarchie claire</strong>Le visiteur comprend en quelques secondes : service, tarif d’appel, téléphone et zone couverte.</div>
+            <div class="trust-item"><strong>Meilleur mobile</strong>Un bouton d’appel visible et une structure pensée pour les urgences depuis smartphone.</div>
+            <div class="trust-item"><strong>Tarifs plus rassurants</strong>Le forfait est présenté dans un cadre clair, transparent et lisible, pas comme un simple gros texte SEO.</div>
+            <div class="trust-item"><strong>Image plus professionnelle</strong>Typo moderne, couleurs cohérentes, cartes propres, avis mieux mis en avant, ancrage local crédible.</div>
+          </div>
+        </div>
+        <div class="card" id="zones">
+          <div style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:10px;">Zones d’intervention</div>
+          <h3 style="font-size:30px;margin:0 0 14px;letter-spacing:-.04em;">Tours et agglomération tourangelle</h3>
+          <p style="color:var(--muted);line-height:1.6;">Le local doit être visible partout sur le site. Cela rassure immédiatement un client qui cherche un artisan proche.</p>
+          <div class="zone-pills" style="margin-top:18px;">
+            <span>Tours</span>
+            <span>Joué-lès-Tours</span>
+            <span>Saint-Cyr-sur-Loire</span>
+            <span>Saint-Pierre-des-Corps</span>
+            <span>La Riche</span>
+            <span>Saint-Avertin</span>
+            <span>Chambray-lès-Tours</span>
+            <span>Fondettes</span>
+            <span>Ballan-Miré</span>
+            <span>Rochecorbon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tarifs">
+      <div class="container">
+        <div class="tarif-card">
+          <div class="section-head" style="margin-bottom:8px; align-items:start;">
+            <div>
+              <div class="eyebrow" style="background: rgba(255,255,255,.12); color: white; border-color: rgba(255,255,255,.16);">Tarifs transparents</div>
+              <h3>Des prix présentés clairement, sans mauvaise surprise</h3>
+            </div>
+            <p style="color: rgba(255,255,255,.86); max-width:520px;">Cette section transforme le tarif actuel en argument commercial : clarté, détail et réassurance avant intervention.</p>
+          </div>
+          <div class="tarif-grid">
+            <div class="tarif-item">
+              <strong>35€ TTC</strong>
+              Frais de déplacement affichés clairement.
+            </div>
+            <div class="tarif-item">
+              <strong>45€ / h</strong>
+              Main-d’œuvre annoncée de façon simple et visible.
+            </div>
+            <div class="tarif-item">
+              <strong>80€ TTC</strong>
+              Dépannage d’entrée mis en avant avec explication du périmètre.
+            </div>
+          </div>
+          <div style="margin-top:16px;color:rgba(255,255,255,.86);font-size:15px;line-height:1.7;">Majoration soir et week-end : clairement indiquée avant validation. En cas de travaux complémentaires, devis communiqué avant intervention.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="avis">
+      <div class="container">
+        <div class="section-head">
+          <h2>Avis clients mieux valorisés</h2>
+          <p>Les témoignages deviennent de vrais blocs de confiance, plus crédibles, plus visibles et plus utiles pour convaincre.</p>
+        </div>
+        <div class="grid-3">
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>Intervention rapide pour une fuite sous évier à Tours. Explications claires, tarif annoncé avant réparation et travail propre.</p>
+            <strong>Jérôme S. — Tours</strong>
+          </div>
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>WC bouchés débouchés le jour même à Saint-Cyr-sur-Loire. Site rassurant, appel facile, prise en charge rapide.</p>
+            <strong>Corinne M. — Saint-Cyr-sur-Loire</strong>
+          </div>
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>Remplacement sanitaire dans des bureaux près de Joué-lès-Tours. Intervention propre et devis clair dès le départ.</p>
+            <strong>Christophe H. — Joué-lès-Tours</strong>
+          </div>
+        </div>
+        <div class="cta-banner">
+          <div>
+            <h3>Le site pousse enfin à l’action</h3>
+            <div style="font-size:18px;line-height:1.6;max-width:700px;color:rgba(255,255,255,.92);">Téléphone visible, boutons clairs, structure plus rassurante, zones d’intervention lisibles : tout est pensé pour transformer le trafic en appels et devis.</div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a class="btn" style="background:white;color:#0b2f73;" href="tel:+33663739066">Appeler</a>
+            <a class="btn" style="background:rgba(255,255,255,.12); color:white; border:1px solid rgba(255,255,255,.18);" href="#contact">Voir le formulaire</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>FAQ utile pour rassurer avant l’appel</h2>
+          <p>Une FAQ simple réduit les hésitations, clarifie les tarifs et évite de perdre des prospects qui ont juste besoin d’être rassurés.</p>
+        </div>
+        <div class="faq">
+          <div class="faq-item"><strong>Intervenez-vous le soir et le week-end ?</strong>Oui, avec majoration clairement annoncée avant validation de l’intervention.</div>
+          <div class="faq-item"><strong>Faites-vous un devis avant travaux ?</strong>Oui, un devis ou une estimation est communiqué avant tout travail complémentaire.</div>
+          <div class="faq-item"><strong>Intervenez-vous uniquement à Tours ?</strong>Non, TN Plomberie intervient à Tours et dans les communes voisines de l’agglomération tourangelle.</div>
+          <div class="faq-item"><strong>Quel est le meilleur moyen de vous contacter ?</strong>En urgence, le bouton “Appeler maintenant” reste la meilleure action. Pour les demandes non urgentes, le devis est accessible en quelques clics.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="card" style="padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+          <div>
+            <div class="eyebrow">Bloc contact de démonstration</div>
+            <h2 style="font-size:42px;margin:18px 0 12px;letter-spacing:-.04em;">Demande de devis express</h2>
+            <p style="color:var(--muted);font-size:18px;line-height:1.6;">Dans la vraie version, on mettrait un formulaire ultra court : nom, téléphone, ville, problème rencontré. Ici, l’objectif est de te montrer la mise en scène commerciale.</p>
+            <div class="proofs" style="margin-top:16px;">
+              <div class="proof">Réponse rapide</div>
+              <div class="proof">Formulaire court</div>
+              <div class="proof">Priorité mobile</div>
+            </div>
+          </div>
+          <div class="card" style="box-shadow:none;">
+            <div style="display:grid;gap:12px;">
+              <div style="border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:#8592a1;">Nom et prénom</div>
+              <div style="border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:#8592a1;">Téléphone</div>
+              <div style="border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:#8592a1;">Ville d’intervention</div>
+              <div style="border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:#8592a1;min-height:110px;">Décrivez votre besoin : fuite, débouchage, chauffe-eau, réparation...</div>
+              <a class="btn btn-primary" href="tel:+33663739066">Envoyer / appeler</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:10px;">
+          <div class="brand-mark">🔧</div>
+          <div>TN Plomberie<small>Refonte démo orientée conversion</small></div>
+        </div>
+        <div style="line-height:1.7;">Cette maquette montre comment repositionner TN Plomberie avec une image plus sérieuse, une meilleure lisibilité des tarifs et plus d’incitation à appeler ou demander un devis.</div>
+      </div>
+      <div>
+        <strong style="display:block;margin-bottom:10px;color:#12253a;">Contact</strong>
+        <div>06 63 73 90 66</div>
+        <div>contact@tnplomberie.fr</div>
+        <div>Tours et agglomération</div>
+      </div>
+      <div>
+        <strong style="display:block;margin-bottom:10px;color:#12253a;">À mettre dans la vraie version</strong>
+        <div>Mentions légales</div>
+        <div>SIRET</div>
+        <div>Horaires</div>
+        <div>Fiche Google</div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-stick">
+    <a class="btn btn-primary" href="tel:+33663739066">Appeler</a>
+    <a class="btn btn-secondary" href="#contact">Devis</a>
+  </div>
+</body>
+</html>
